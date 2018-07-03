@@ -25,4 +25,22 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function display_contacts_table()
+    {
+        return view('contactlist');
+    }
+    public function display_createaccount_form()
+    {
+        return view('createaccount');
+    }
+    public function display_createcontact_form()
+    {
+        return view('createcontact');
+    }
+    public function display_sendmoney_form()
+    {
+        return view('sendmoney');
+    }
+    
+    
 }

@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/contactlist', 'HomeController@display_contacts_table')->name('contactlist');
+Route::get('/createcontact', 'HomeController@display_createcontact_form')->name('createcontact');
+Route::get('/createaccount', 'HomeController@display_createaccount_form')->name('createaccount');
+Route::post('/sendmoney', 'HomeController@display_sendmoney_form')->name('sendmoney');
+
