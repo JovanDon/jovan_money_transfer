@@ -16,8 +16,7 @@
             </div>
         @endif                  
 
-                            <table width="110%" class="table table-striped table-bordered table-hover"
-                                   id="dataTables-example">
+                            <table width="110%" class="table table-striped table-bordered table-responsive-md" id="dataTables-example">
                                 <thead>
                                 <tr>
                                     <th>First Name</th>
@@ -32,43 +31,44 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd gradeX">
-                                    <td>John</td>
-                                    <td>Okoth</td>
-                                    <td>+363636363</td>
-                                    <td class="center">jogshsh@gmail.com</td>
-                                    <td class="center">Uganda</td>
-                                    <td> 
-                                        <form action="{{url('sendmoney')}}"  method="post">
-                                        @csrf
-                                            <input name="certificate" type="hidden" value="">
-                                            <input name="_id" type="hidden" value="">
-                                            <button class="btn btn-success" type="submit">Send money</button>
-                                        </form>
-                                     </td>
-                                     <td> 
-                                        <form action="{{url('addaccount')}}"  method="post">
-                                        @csrf
-                                            <input name="user_id" type="hidden" value="">
-                                            <button class="btn btn-info" type="submit">add account</button>
-                                        </form>
-                                     </td>
-                                     <td> 
-                                        <form action="{{url('editContact')}}"  method="post">
-                                        @csrf
-                                            <input name="user_id" type="hidden" value="">
-                                            <button class="btn btn-warning" type="submit">Edit</button>
-                                        </form>
-                                     </td>
-                                     <td> 
-                                     <form action="{{url('deletecontact')}}"  method="post">
-                                        @csrf
-                                            <input name="user_id" type="hidden" value="">
-                                            <button class="btn btn-danger" type="submit">Delete</button>
-                                        </form>
-                                     </td>
-                                </tr>
-                               
+                                @foreach ($contacts as $contact) 
+                                    <tr >
+                                        <td>{{$contact->fname}}</td>
+                                        <td>{{$contact->lname}}</td>
+                                        <td>{{$contact->phonenumber}}</td>
+                                        <td class="center">{{$contact->email}}</td>
+                                        <td class="center">{{$contact->country}}</td>
+                                        <td> 
+                                            <form action="{{url('sendmoney')}}"  method="post">
+                                            @csrf
+                                                <input name="certificate" type="hidden" value="">
+                                                <input name="_id" type="hidden" value="">
+                                                <button class="btn btn-success" type="submit">Send money</button>
+                                            </form>
+                                        </td>
+                                        <td> 
+                                            <form action="{{url('addaccount')}}"  method="post">
+                                            @csrf
+                                                <input name="user_id" type="hidden" value="">
+                                                <button class="btn btn-info" type="submit">add account</button>
+                                            </form>
+                                        </td>
+                                        <td> 
+                                            <form action="{{url('editcontact')}}"  method="post">
+                                            @csrf
+                                                <input name="contact_id" type="hidden" value="{{$contact->id}}">
+                                                <button class="btn btn-warning" type="submit">Edit</button>
+                                            </form>
+                                        </td>
+                                        <td> 
+                                            <form action="{{url('deletecontact')}}"  method="post">
+                                            @csrf
+                                                <input name="contact_id" type="hidden" value="{{$contact->id}}">
+                                                <button class="btn btn-danger" type="submit">Del</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                               @endforeach
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->

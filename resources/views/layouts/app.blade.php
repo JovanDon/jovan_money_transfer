@@ -28,6 +28,7 @@
 <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 <!--international phone numbers-->
 <link href="{{ asset('intl-tel-input-12.4.0/build/css/intlTelInput.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -131,12 +132,11 @@
   $(document).on('change','#phone',function(){
             
     var countryData = $("#phone").intlTelInput("getSelectedCountryData");
-    $("#country").val(countryData.name);
+    $("#country").val( countryData.name || $("#country").val());
 
     var number = $("#phone").intlTelInput("getNumber", intlTelInputUtils.numberFormat.E164);
     $("#phonenumber").val(number);
-    alert(JSON.stringify(number) );
-        //alert(JSON.stringify(intlTelInputUtils.numberType) );
+    //alert(JSON.stringify(number) );
      });  
   </script> 
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
@@ -151,7 +151,7 @@
 <!-- DataTables JavaScript -->
 <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
+<script src="{{ asset('vendor/datatables-responsive/responsive.bootstrap4.js') }}"></script>
 
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->

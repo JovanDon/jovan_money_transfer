@@ -35,7 +35,11 @@ class HomeController extends Controller
     }
     public function display_createcontact_form()
     {
-        return view('createcontact');
+       
+        $app = app();
+        $contact = $app->make('stdClass');
+        $contact->id = 0;
+        return view('createcontact',compact('contact',$contact));
     }
     public function display_sendmoney_form()
     {
