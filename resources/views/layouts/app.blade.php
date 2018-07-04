@@ -167,13 +167,39 @@
 </script>
 <script>
 $(function(){
-  $("select#name").change(function(){
-    $.getJSON("{{ url('getcontact_info') }}",{id: $(this).val(), ajax: 'true'}, function(j){
-     JSON.stringify(j);
-     // $("select#ctlPerson").html(options);
+     $("select#name").change(function(){
+
+    $.get("{{ url('getcontact_info') }}/?contact_id="+$(this).val() +"", function(contactData){
+        $("input#email").val(contactData[0].email);
+        $("input#phonenumber").val(contactData[0].phonenumber);
+        
+        
+     
+      $.get('{{ url("getaccounts_info") }}/?contact_id=' + contactData[0].id, function(accountsData) {
+            $("select#account_name").empty();
+            $("select#account_name").append('<option value=""> </option>');
+
+            //alert(JSON.stringify(accountsData));
+            $.each(accountsData, function(index,account){
+                $("select#account_name").append('<option value="' + account.id + '">' + account.account_name  + '</option>');
+            });
+        });
+    
     })
-  })
-})
+  });
+
+});
+ 
+
+$("select#account_name").change(function(){
+
+        $.get("{{ url('getaccount_info') }}/?contact_id="+$(this).val() +"", function(accountsData){
+            //alert(JSON.stringify(accountsData));
+            $("input#account_number").val(accountsData[0].account_number); 
+  
+        });
+
+});
 </script>
 
 </body>

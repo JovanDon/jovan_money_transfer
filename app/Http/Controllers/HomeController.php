@@ -51,7 +51,9 @@ class HomeController extends Controller
     }
     public function display_sendmoney_form()
     {
-        return view('sendmoney');
+        $logged_in_user=Auth::user();
+        $recievers= User::all()->where('created_by', $logged_in_user->id);
+        return view('sendmoney',compact('recievers',$recievers));
     }
     
     

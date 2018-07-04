@@ -31,12 +31,17 @@
                                 @endif
                             </div>
                         </div>
+                        <h2 style="text-align:center;" >{{ __('Recievers Details') }}</h2>
 
                           <div class="form-group row">
                             <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
                                 <select id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" >
+                                   <option value="" ></option>
+                                   @foreach($recievers as $contact)
+                                   <option value="{{$contact->id}}" >{{$contact->lname}} {{$contact->fname}} </option>
+                                   @endforeach
                                 </select>
 
                                 @if ($errors->has('name'))
@@ -68,8 +73,9 @@
                             <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="account_name" type="text" readonly class="form-control" name="account_name" value="{{ old('account_name') }}" required autofocus>
-
+                            <select id="account_name" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_name" value="{{ old('account_name') }}" >
+                                   <option value="" ></option>
+                            <select/>
                             </div>
                         </div>
                         <div class="form-group row">
