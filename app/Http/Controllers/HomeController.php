@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -29,9 +30,16 @@ class HomeController extends Controller
     {
         return view('contactlist');
     }
-    public function display_createaccount_form()
+    public function display_createaccount_form(Request $request)
     {
-        return view('createaccount');
+        $logged_in_user=Auth::user();
+        $user_id_ToCheck=$logged_in_user->id;
+        if($request->user_id)
+        $user_id_ToCheck=$request->user_id ;
+
+        $contactinfo= User::all()->where('id', $user_id_ToCheck);
+        
+        return view('createaccount',compact('contactinfo',$contactinfo));
     }
     public function display_createcontact_form()
     {

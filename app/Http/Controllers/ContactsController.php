@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-class Contacts extends Controller
+class ContactsController extends Controller
 {
    
     public function create_contact(Request $request)
     {
-        $logged_in_user=Auth::user();
 
+        $logged_in_user=Auth::user();
         // define aray data to insert in User table
         $postData = [
             'fname' => $request->fname,
@@ -70,6 +70,7 @@ class Contacts extends Controller
         return redirect()->route('contactlist');
 
     } 
-    
+ 
+     
 
 }

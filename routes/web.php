@@ -10,22 +10,34 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\User;
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/contactlist', 'Contacts@display_contacts_list')->name('contactlist');
+Route::get('/contactlist', 'ContactsController@display_contacts_list')->name('contactlist');
 Route::get('/createcontact', 'HomeController@display_createcontact_form')->name('createcontact');
 Route::get('/createaccount', 'HomeController@display_createaccount_form')->name('createaccount');
 Route::post('/sendmoney', 'HomeController@display_sendmoney_form');
-Route::post('/addcontact', 'Contacts@create_contact');
-Route::post('/updatecontact', 'Contacts@update_contact');
-Route::post('/editcontact', 'Contacts@edit_contact');
-Route::post('/deletecontact', 'Contacts@delete_contact');
+Route::post('/addcontact', 'ContactsController@create_contact');
+Route::post('/updatecontact', 'ContactsController@update_contact');
+Route::post('/editcontact', 'ContactsController@edit_contact');
+Route::post('/deletecontact', 'ContactsController@delete_contact');
+Route::post('/addaccount_action', 'AccountsController@create_account');
+Route::post('/addaccount', 'HomeController@display_createaccount_form');
+Route::get('/ajaxcall', 'ContactsController@fetchcontact_data');
+
+
+Route::get('/getcontact_info',function()
+{
+    $contact_id = Input::get('contact_id');
+    $contactData = User::where('id','=',$contact_id)->get();
+    return $contactData;
+
+});
 
 
 

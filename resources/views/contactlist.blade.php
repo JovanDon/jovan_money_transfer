@@ -41,7 +41,6 @@
                                         <td> 
                                             <form action="{{url('sendmoney')}}"  method="post">
                                             @csrf
-                                                <input name="certificate" type="hidden" value="">
                                                 <input name="_id" type="hidden" value="">
                                                 <button class="btn btn-success" type="submit">Send money</button>
                                             </form>
@@ -49,7 +48,7 @@
                                         <td> 
                                             <form action="{{url('addaccount')}}"  method="post">
                                             @csrf
-                                                <input name="user_id" type="hidden" value="">
+                                                <input name="user_id" type="hidden" value="{{$contact->id}}" >
                                                 <button class="btn btn-info" type="submit">add account</button>
                                             </form>
                                         </td>
@@ -64,7 +63,7 @@
                                             <form action="{{url('deletecontact')}}"  method="post">
                                             @csrf
                                                 <input name="contact_id" type="hidden" value="{{$contact->id}}">
-                                                <button class="btn btn-danger" type="submit">Del</button>
+                                                <button class="btn btn-danger" type="submit">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

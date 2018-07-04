@@ -53,7 +53,7 @@
                       <a class="nav-link" href="{{ URL::to('contactlist') }}">Contact list</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ URL::to('createaccount') }}">Add Account</a>
+                      <a class="nav-link" href="{{ URL::to('createaccount') }}">Add My Account</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="{{ URL::to('createcontact') }}">Add Contact</a>
@@ -164,6 +164,16 @@
             }
         });
     });
+</script>
+<script>
+$(function(){
+  $("select#name").change(function(){
+    $.getJSON("{{ url('getcontact_info') }}",{id: $(this).val(), ajax: 'true'}, function(j){
+     JSON.stringify(j);
+     // $("select#ctlPerson").html(options);
+    })
+  })
+})
 </script>
 
 </body>
