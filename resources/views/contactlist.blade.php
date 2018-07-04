@@ -41,7 +41,7 @@
                                         <td> 
                                             <form action="{{url('sendmoney')}}"  method="post">
                                             @csrf
-                                                <input name="_id" type="hidden" value="">
+                                                <input name="contact_id" type="hidden" value="{{$contact->id}}">
                                                 <button class="btn btn-success" type="submit">Send money</button>
                                             </form>
                                         </td>

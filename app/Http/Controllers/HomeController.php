@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Accounts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,12 +50,21 @@ class HomeController extends Controller
         $contact->id = 0;
         return view('createcontact',compact('contact',$contact));
     }
-    public function display_sendmoney_form()
+    public function display_sendmoney_form(Request $request)
     {
-        $logged_in_user=Auth::user();
-        $recievers= User::all()->where('created_by', $logged_in_user->id);
-        return view('sendmoney',compact('recievers',$recievers));
+        
+        $reciever_id=$request->contact_id;
+
+        $reciever_accounts= Accounts::all()->where('user_id', $reciever_id);
+
+        return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
     }
-    
+    public function getLoggedin_UserAccounts(){
+        $logged_in_user=Auth::user();
+
+        $sender_accounts= Accounts::all()->where('user_id', $logged_in_user->id);
+        
+        return $sender_accounts;
+    }
     
 }

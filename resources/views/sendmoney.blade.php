@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                    <form method="POST" action="{{ url('sendmoney_action') }}" aria-label="{{ __('Register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -31,58 +31,58 @@
                                 @endif
                             </div>
                         </div>
-                        <h2 style="text-align:center;" >{{ __('Recievers Details') }}</h2>
-
-                          <div class="form-group row">
-                            <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" >
-                                   <option value="" ></option>
-                                   @foreach($recievers as $contact)
-                                   <option value="{{$contact->id}}" >{{$contact->lname}} {{$contact->fname}} </option>
-                                   @endforeach
-                                </select>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="phonenumber" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="phonenumber" type="text" readonly class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" >
-
-                            </div>
-                        </div>
+                        <h4 style="text-align:center;" >{{ __('Sender Account') }}</h4>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="account_name_sender" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" readonly class="form-control" name="email" value="{{ old('email') }}" >
+                            <select id="account_sender" class="form-control{{ $errors->has('account_sender') ? ' is-invalid' : '' }}" name="account_sender" value="{{ old('account_sender') }}" >
+                             
+                               @inject('AccountsController_ref', 'App\Http\Controllers\HomeController') 
+                                
+                               @if($AccountsController_ref->getLoggedin_UserAccounts()->isEmpty())
+                               <option value="" >You have no account yet!</option>
+                               @else
+                               <option value="" ></option>
+                               @endif
+
+                               @foreach( $AccountsController_ref->getLoggedin_UserAccounts() as $account)
+                               <option value="{{$account->id}}" > {{$account->account_name}}</option>
+                               @endforeach
+                               
+                            <select/>
                             </div>
                         </div>
+                        <div class="form-group row" style="display:none;" id="accountNumber_sender_div" >
+                            <label for="account_number_sender" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
 
+                            <div class="col-md-6">
+                                <input  id="account_number_sender" type="text" readonly class="form-control" >
+
+                            </div>
+                        </div>
+                        <h4 style="text-align:center;" >{{ __('Recievers Account') }}</h4>
+
+                       
 
                         <div class="form-group row">
                             <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
 
                             <div class="col-md-6">
-                            <select id="account_name" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_name" value="{{ old('account_name') }}" >
-                                   <option value="" ></option>
+                            <select id="account_name" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_reciever" value="{{ old('account_name') }}" >
+                               <option value="" ></option>
+                               @foreach( $reciever_accounts as $account)
+                               <option value="{{$account->id}}" > {{$account->account_name}}</option>
+                               @endforeach
                             <select/>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="display:none;" id="accountNumber_div" >
                             <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="account_number" type="text" readonly class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" required autofocus>
+                                <input  id="account_number" type="text" readonly class="form-control"  value="{{ old('phonenumber') }}" required autofocus>
 
                             </div>
                         </div>
