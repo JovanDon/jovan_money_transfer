@@ -58,6 +58,9 @@
                     <li class="nav-item">
                       <a class="nav-link" href="{{ URL::to('createcontact') }}">Add Contact</a>
                     </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ URL::to('viewmytransactions') }}">My transactions</a>
+                    </li>
                   </ul>
                   <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

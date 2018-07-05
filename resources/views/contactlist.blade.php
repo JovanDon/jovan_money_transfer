@@ -19,25 +19,19 @@
                             <table width="110%" class="table table-striped table-bordered table-responsive-md" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>phone number</th>
-                                    <th>Email Addres</th>
-                                    <th>Country</th>
-                                    <th>Action One</th>
-                                    <th>Action Two</th>
-                                    <th>Action Three</th>
-                                    <th>Action Four</th>
+                                    <th> Name</th>
+                                    <th>Contact/Addres information</th>
+                                    <th>Action 1</th>
+                                    <th>Action 2</th>
+                                    <th>Action 3</th>
+                                    <th>Action 5</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($contacts as $contact) 
                                     <tr >
-                                        <td>{{$contact->fname}}</td>
-                                        <td>{{$contact->lname}}</td>
-                                        <td>{{$contact->phonenumber}}</td>
-                                        <td class="center">{{$contact->email}}</td>
-                                        <td class="center">{{$contact->country}}</td>
+                                        <td>{{$contact->fname}} {{$contact->lname}}</td>
+                                        <td>{{$contact->phonenumber}}  {{$contact->email}}  {{$contact->country}}</td>
                                         <td> 
                                             <form action="{{url('sendmoney')}}"  method="post">
                                             @csrf
