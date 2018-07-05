@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2018 at 06:39 PM
+-- Generation Time: Jul 05, 2018 at 03:40 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -37,6 +37,16 @@ CREATE TABLE `accounts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`id`, `account_name`, `account_type`, `account_number`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Charles\' Mtn', 'mobile_money', '0778963452', 2, '2018-07-04 05:08:51', '2018-07-04 05:08:51'),
+(2, 'Charles\' Airtel', 'mobile_money', '0708963452', 2, '2018-07-04 05:12:40', '2018-07-04 05:12:40'),
+(3, 'Charles\' Africell', 'mobile_money', '0798963452', 2, '2018-07-04 05:14:02', '2018-07-04 05:14:02'),
+(4, 'Mutesasira Jovan', 'mobile_money', '+256702563825', 1, '2018-07-04 12:49:40', '2018-07-04 12:49:40');
 
 -- --------------------------------------------------------
 
@@ -85,6 +95,15 @@ CREATE TABLE `transactions` (
   `reciever_account` int(10) UNSIGNED NOT NULL,
   `Created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `amount`, `sender_account`, `reciever_account`, `Created_at`) VALUES
+(1, '1000.00', 4, 1, '2018-07-04 16:10:55'),
+(2, '30000.00', 4, 2, '2018-07-05 13:35:40'),
+(3, '30000.00', 4, 2, '2018-07-05 13:36:44');
 
 -- --------------------------------------------------------
 
@@ -168,7 +187,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -180,13 +199,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2393;
 
 --
 -- Constraints for dumped tables

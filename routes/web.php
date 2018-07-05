@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@display_sendmoney_form')->name('sendmoney');
 Route::get('/contactlist', 'ContactsController@display_contacts_list')->name('contactlist');
 Route::get('/createcontact', 'HomeController@display_createcontact_form')->name('createcontact');
 Route::get('/createaccount', 'HomeController@display_createaccount_form')->name('createaccount');
@@ -28,7 +28,7 @@ Route::post('/editcontact', 'ContactsController@edit_contact');
 Route::post('/deletecontact', 'ContactsController@delete_contact');
 Route::post('/addaccount_action', 'AccountsController@create_account');
 Route::post('/addaccount', 'HomeController@display_createaccount_form');
-Route::post('/sendmoney_action', 'AccountsController@record_transaction');
+Route::post('/sendmoney_action', 'TransactionsController@record_transaction');
 Route::get('/viewmytransactions', 'TransactionsController@display_myTransactions');
 
 
