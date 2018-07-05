@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2018 at 03:40 PM
+-- Generation Time: Jul 05, 2018 at 04:52 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -35,18 +35,19 @@ CREATE TABLE `accounts` (
   `account_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `bank_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`id`, `account_name`, `account_type`, `account_number`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Charles\' Mtn', 'mobile_money', '0778963452', 2, '2018-07-04 05:08:51', '2018-07-04 05:08:51'),
-(2, 'Charles\' Airtel', 'mobile_money', '0708963452', 2, '2018-07-04 05:12:40', '2018-07-04 05:12:40'),
-(3, 'Charles\' Africell', 'mobile_money', '0798963452', 2, '2018-07-04 05:14:02', '2018-07-04 05:14:02'),
-(4, 'Mutesasira Jovan', 'mobile_money', '+256702563825', 1, '2018-07-04 12:49:40', '2018-07-04 12:49:40');
+INSERT INTO `accounts` (`id`, `account_name`, `account_type`, `account_number`, `user_id`, `created_at`, `updated_at`, `bank_name`) VALUES
+(1, 'Charles\' Mtn', 'mobile_money', '0778963452', 2, '2018-07-04 05:08:51', '2018-07-04 05:08:51', NULL),
+(2, 'Charles\' Airtel', 'mobile_money', '0708963452', 2, '2018-07-04 05:12:40', '2018-07-04 05:12:40', NULL),
+(3, 'Charles\' Africell', 'mobile_money', '0798963452', 2, '2018-07-04 05:14:02', '2018-07-04 05:14:02', NULL),
+(4, 'Mutesasira Jovan', 'mobile_money', '+256702563825', 1, '2018-07-04 12:49:40', '2018-07-04 12:49:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2014_10_12_000000_create_users_table', 1),
 (4, '2014_10_12_100000_create_password_resets_table', 1),
 (5, '2018_07_03_160600_create_accounts_table', 2),
-(6, '2018_07_03_161159_create_transactions_table', 2);
+(6, '2018_07_03_161159_create_transactions_table', 2),
+(9, '2018_07_05_140635_modify__users_and__accounts', 3);
 
 -- --------------------------------------------------------
 
@@ -122,25 +124,27 @@ CREATE TABLE `users` (
   `created_by` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `phonenumber`, `country`, `password`, `created_by`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'giov', 'giovanni', 'mutesasirajovan@gmail.com', '+256702563825', 'Uganda', '$2y$10$hXMu2kh4tqRUgJlQBGUdiOWFlmirOkv.7xdcCCmPUBdbOCY5aAz0m', NULL, 'wGWijmJm5apXtk9AultzNXkJdKzu7jyFUIL7EPNyvMwIIAVvctUaL3y6pSth', '2018-07-03 07:14:40', '2018-07-03 07:14:40'),
-(2, 'charles', 'Okoth', 'otkotherr@gmail.com', '+256779890344', 'Uganda', NULL, '1', NULL, '2018-07-03 10:36:53', '2018-07-03 10:36:53'),
-(3, 'Joseph', 'Oketh', 'okechoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:39:47', '2018-07-03 11:58:35'),
-(4, 'joshua', 'Muhumuza', 'jesusreigns0@gmail.com', '+25675881156', 'Uganda', NULL, '1', NULL, '2018-07-03 10:49:03', '2018-07-03 12:25:06'),
-(5, 'Jack', 'Martins', 'jackmartz0@gmail.com', '+256770965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:52:26', '2018-07-03 12:03:45'),
-(6, 'Henry', 'Okecho', 'henryokecho99l0@gmail.com', '+256778900432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:53:27', '2018-07-03 12:23:53'),
-(7, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:54:05', '2018-07-03 10:54:05'),
-(8, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:56:20', '2018-07-03 10:56:20'),
-(9, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:57:52', '2018-07-03 10:57:52'),
-(10, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 11:01:11', '2018-07-03 11:01:11'),
-(12, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 11:05:39', '2018-07-03 11:05:39');
+INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `phonenumber`, `country`, `password`, `created_by`, `remember_token`, `created_at`, `updated_at`, `is_active`) VALUES
+(1, 'giov', 'giovanni', 'mutesasirajovan@gmail.com', '+256702563825', 'Uganda', '$2y$10$hXMu2kh4tqRUgJlQBGUdiOWFlmirOkv.7xdcCCmPUBdbOCY5aAz0m', NULL, 'wGWijmJm5apXtk9AultzNXkJdKzu7jyFUIL7EPNyvMwIIAVvctUaL3y6pSth', '2018-07-03 07:14:40', '2018-07-03 07:14:40', 1),
+(2, 'charles', 'Okoth', 'otkotherr@gmail.com', '+256779890344', 'Uganda', NULL, '1', NULL, '2018-07-03 10:36:53', '2018-07-03 10:36:53', 1),
+(3, 'Joseph', 'Oketh', 'okechoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:39:47', '2018-07-03 11:58:35', 1),
+(4, 'joshua', 'Muhumuza', 'jesusreigns0@gmail.com', '+25675881156', 'Uganda', NULL, '1', NULL, '2018-07-03 10:49:03', '2018-07-03 12:25:06', 1),
+(5, 'Jack', 'Martins', 'jackmartz0@gmail.com', '+256770965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:52:26', '2018-07-03 12:03:45', 1),
+(6, 'Henry', 'Okecho', 'henryokecho99l0@gmail.com', '+256778900432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:53:27', '2018-07-03 12:23:53', 1),
+(7, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:54:05', '2018-07-03 10:54:05', 1),
+(8, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:56:20', '2018-07-03 10:56:20', 1),
+(9, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 10:57:52', '2018-07-03 10:57:52', 1),
+(10, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 11:01:11', '2018-07-03 11:01:11', 1),
+(12, 'Joel', 'Okoth', 'okellojoel0@gmail.com', '+256778965432', 'Uganda', NULL, '1', NULL, '2018-07-03 11:05:39', '2018-07-03 11:05:39', 1),
+(2395, 'root', 'root', 'admin@admin.com', '+256778878965', 'Uganda', '$2y$10$UQ6fs4TKqBIhSeAaHiYy1ectstt56IR6s0CPe9MNkLoGwzKI8bvpi', NULL, NULL, NULL, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -193,7 +197,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -205,7 +209,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2393;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2396;
 
 --
 -- Constraints for dumped tables
