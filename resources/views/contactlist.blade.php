@@ -24,7 +24,7 @@
                                     <th>Action 1</th>
                                     <th>Action 2</th>
                                     <th>Action 3</th>
-                                    <th>Action 5</th>
+                                    <th>Action 4</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -39,11 +39,11 @@
                                                 <button class="btn btn-success" type="submit">Send money</button>
                                             </form>
                                         </td>
-                                        <td> 
+                                        <td>
                                             <form action="{{url('addaccount')}}"  method="post">
                                             @csrf
-                                                <input name="user_id" type="hidden" value="{{$contact->id}}" >
-                                                <button class="btn btn-info" type="submit">add account</button>
+                                                <input name="user_id" type="hidden" value="{{$contact->id}}">
+                                                <button class="btn btn-info" type="submit">Add Account</button>
                                             </form>
                                         </td>
                                         <td> 

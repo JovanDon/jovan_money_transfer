@@ -31,7 +31,7 @@
                                 @endif
                             </div>
                         </div>
-                        <h4 style="text-align:center;" >{{ __('Sender Account') }}</h4>
+                        <h4 style="text-align:center;" >{{ __('Sending Account') }}</h4>
 
                         <div class="form-group row">
                             <label for="account_name_sender" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
@@ -48,44 +48,29 @@
                                @endif
 
                                @foreach( $AccountsController_ref->getLoggedin_UserAccounts() as $account)
-                               <option value="{{$account->id}}" > {{$account->account_name}}</option>
+                               <option value="{{$account->id}}" > {{$account->account_name}} {{$account->account_number}}</option>
                                @endforeach
                                
                             <select/>
                             </div>
                         </div>
-                        <div class="form-group row" style="display:none;" id="accountNumber_sender_div" >
-                            <label for="account_number_sender" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
-
-                            <div class="col-md-6">
-                                <input  id="account_number_sender" type="text" readonly class="form-control" >
-
-                            </div>
-                        </div>
-                        <h4 style="text-align:center;" >{{ __('Recievers Account') }}</h4>
+                        <h4 style="text-align:center;" >{{ __('Reciever') }}</h4>
 
                        
 
                         <div class="form-group row">
-                            <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
+                            <label for="account_name" class="col-md-4 col-form-label text-md-right">{{$reciever_accounts->first()->fname}} {{$reciever_accounts->first()->lname}}'s Accounts</label>
 
                             <div class="col-md-6">
                             <select id="account_name" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_reciever" value="{{ old('account_name') }}" >
                                <option value="" ></option>
                                @foreach( $reciever_accounts as $account)
-                               <option value="{{$account->id}}" > {{$account->account_name}}</option>
+                               <option value="{{$account->id}}" > {{$account->account_name}} {{$account->account_number}}</option>
                                @endforeach
                             <select/>
                             </div>
                         </div>
-                        <div class="form-group row" style="display:none;" id="accountNumber_div" >
-                            <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
 
-                            <div class="col-md-6">
-                                <input  id="account_number" type="text" readonly class="form-control"  value="{{ old('phonenumber') }}" required autofocus>
-
-                            </div>
-                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -170,16 +170,6 @@
 </script>
 <script>
 
-$("select#account_name").change(function(){
-
-        $.get("{{ url('getaccount_info') }}/?account_id="+$(this).val() +"", function(accountsData){
-            //alert(JSON.stringify(accountsData));
-            $("input#account_number").val(accountsData[0].account_number); 
-            $("#accountNumber_div").show();
-        });
-
-});
-
 $("select#account_sender").change(function(){
 
 $.get("{{ url('getaccount_info') }}/?account_id="+$(this).val() +"", function(accountsData){

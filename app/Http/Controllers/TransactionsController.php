@@ -30,6 +30,7 @@ class TransactionsController extends Controller
         ->join('users as receiverContact', 'receiverContact.id', '=', 'accountsReceiver.user_id')
         ->select('users.fname', 'users.lname','receiverContact.fname as fname_receiver', 'receiverContact.lname as lname_receiver','accountssender.account_number', 'accountsReceiver.account_number as account_number_receiver', 'transactions.amount', 'transactions.created_at as transactiontime')
         ->where('users.id' ,$logged_in_user->id)
+        ->orderByRaw('transactiontime DESC')
         ->get();
     }
     public function record_transaction(Request $request)

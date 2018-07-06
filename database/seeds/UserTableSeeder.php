@@ -18,9 +18,9 @@ class UserTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
 
-        for ($i=0; $i < 200; $i++) {
+      /*  for ($i=0; $i < 200; $i++) {
             $this->generateUser_and_5Receivers($faker);                      
-        }
+        }*/
 
         for ($j=0; $j < 500; $j++){
             $this->generate_afake_transaction($faker);   
@@ -52,7 +52,7 @@ class UserTableSeeder extends Seeder
         return $Existing_randomUser;
     }
     
-    public function get_a_random_existingAccount_id(){
+    public function get_a_random_existingAccount_id($faker){
         $existing_ids = Accounts::all()->pluck('id')->toArray();
         $Existing_randomAccount=$faker->randomElement($existing_ids);
         return $Existing_randomAccount;
@@ -118,16 +118,18 @@ class UserTableSeeder extends Seeder
         $startDate = '-30 years';
         $endDate = 'now';
         $timezone = null;
-        $DataToConsider=$faker->dateTimeBetween($startDate, $endDate, $timezone);
-        $senderAcct_id=get_a_random_existingAccount_id();
-        $ReceiverAcct_id=get_a_random_existingAccount_id();
 
-        $this->insertTransaction($DataToConsider,$senderAcct_id,$ReceiverAcct_id);
+        $DataToConsider=$faker->dateTimeBetween($startDate, $endDate, $timezone);
+        $senderAcct_id=$this->get_a_random_existingAccount_id($faker);
+        $ReceiverAcct_id=$this->get_a_random_existingAccount_id($faker);
+        $amount=$faker->numberBetween(1000, 900000);
+
+        $this->insertTransaction($amount,$DataToConsider,$senderAcct_id,$ReceiverAcct_id);
     }
 
-    public function insertTransaction($DataToConsider,$senderAcct_id,$ReceiverAcct_id){
+    public function insertTransaction($amount,$DataToConsider,$senderAcct_id,$ReceiverAcct_id){
         DB::table('transactions')->insert([            
-            'amount' => numberBetween(1000, 9000000)  ,
+            'amount' =>  $amount ,
             'sender_account' => $senderAcct_id,
             'reciever_account' => $ReceiverAcct_id ,
             'created_at' => $DataToConsider ,

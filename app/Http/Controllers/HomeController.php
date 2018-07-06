@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Accounts;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,7 +56,11 @@ class HomeController extends Controller
         
         $reciever_id=$request->contact_id;
 
-        $reciever_accounts= Accounts::all()->where('user_id', $reciever_id);
+        $reciever_accounts=DB::table('accounts')
+        ->join('users', 'users.id', '=', 'accounts.user_id')
+        ->select('users.*', 'accounts.account_number','accounts.account_name')
+        ->where('users.id', $reciever_id)
+        ->get();
 
         return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
     }
