@@ -18,9 +18,9 @@ class UserTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
 
-      /*  for ($i=0; $i < 200; $i++) {
+      for ($i=0; $i < 200; $i++) {
             $this->generateUser_and_5Receivers($faker);                      
-        }*/
+        }
 
         for ($j=0; $j < 500; $j++){
             $this->generate_afake_transaction($faker);   

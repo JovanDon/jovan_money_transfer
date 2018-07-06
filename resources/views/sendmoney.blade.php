@@ -2,13 +2,14 @@
 
 @section('content')
 <div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Send money') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('sendmoney_action') }}" aria-label="{{ __('Register') }}">
+                    <form method="POST" action="{{ url('sendmoney_action') }}" aria-label="{{ __('Send Money') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -32,7 +33,7 @@
                             </div>
                         </div>
                         <h4 style="text-align:center;" >{{ __('Sending Account') }}</h4>
-
+                        @if($reciever_accounts!=null)
                         <div class="form-group row">
                             <label for="account_name_sender" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
 
@@ -53,24 +54,210 @@
                                
                             <select/>
                             </div>
-                        </div>
-                        <h4 style="text-align:center;" >{{ __('Reciever') }}</h4>
-
-                       
-
-                        <div class="form-group row">
-                            <label for="account_name" class="col-md-4 col-form-label text-md-right">{{$reciever_accounts->first()->fname}} {{$reciever_accounts->first()->lname}}'s Accounts</label>
-
-                            <div class="col-md-6">
-                            <select id="account_name" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_reciever" value="{{ old('account_name') }}" >
-                               <option value="" ></option>
-                               @foreach( $reciever_accounts as $account)
-                               <option value="{{$account->id}}" > {{$account->account_name}} {{$account->account_number}}</option>
-                               @endforeach
-                            <select/>
+                            <div class="col-md-2">                            
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newSendingAcct"  >New Account</button>
                             </div>
                         </div>
+                        @else
+                        <div style="margin-left:120px;" >
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">get from Mobile money</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">get from Bank</a>
+                                </li>
+                            </ul>
+                        </div>
 
+                        <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        
+                            <div class="form-group row">
+                                <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="account_number" type="text" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" required autofocus>
+
+                                    @if ($errors->has('account_number'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('account_number') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="registeredNames" class="col-md-4 col-form-label text-md-right">{{ __('Registered Names') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="registeredNames" type="text" placeholder="+256742563825" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="registeredNames" value="{{ old('registeredNames') }}" required autofocus>
+
+                                    @if ($errors->has('registeredNames'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('registeredNames') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            
+                                <div class="form-group row">
+                                    <label for="bank_name" class="col-md-4 col-form-label text-md-right">{{ __('Bank Name') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="bank_name" type="text" class="form-control{{ $errors->has('bank_name') ? ' is-invalid' : '' }}" name="bank_name" value="{{ old('bank_name') }}" required autofocus>
+
+                                        @if ($errors->has('bank_name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('bank_name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="account_name" type="text" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_name" value="{{ old('account_name') }}" required autofocus>
+
+                                        @if ($errors->has('account_name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('account_name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="account_number" type="text" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" required autofocus>
+
+                                    @if ($errors->has('account_number'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('account_number') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        @endif
+
+                        <h4 style="text-align:center;" >{{ __('Recieving Account') }}</h4>
+
+                        @if($reciever_accounts!=null)
+                            <div class="form-group row">
+                                <label for="account_name" class="col-md-4 col-form-label text-md-right">{{$reciever_accounts->first()->fname}} {{$reciever_accounts->first()->lname}}'s Accounts</label>
+
+                                <div class="col-md-6">
+                                <select id="account_name" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_reciever" value="{{ old('account_name') }}" >
+                                <option value="" ></option>
+                                @foreach( $reciever_accounts as $account)
+                                <option value="{{$account->id}}" > {{$account->account_name}} {{$account->account_number}}</option>
+                                @endforeach
+                                <select/>
+                                </div>
+
+                                <div class="col-md-2">                            
+                                <button type="button" class="btn btn-info  btn-sm" data-toggle="modal" data-target="#newReceivingAcct"  >New Account</button>
+                                </div>
+                            </div>
+                        @else
+                        <div style="margin-left:120px;" >
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-receiver-mm-tab" data-toggle="pill" href="#pills-receiver-mm" role="tab" aria-controls="pills-receiver-mm" aria-selected="true">send to Mobile money</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-receiver-bank-tab" data-toggle="pill" href="#pills-receiver-bank" role="tab" aria-controls="pills-receiver-bank" aria-selected="false">send to Bank</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-receiver-mm" role="tabpanel" aria-labelledby="pills-home-tab">
+                            
+                                <div class="form-group row">
+                                    <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="account_number" type="text" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" required autofocus>
+
+                                        @if ($errors->has('account_number'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('account_number') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="registeredNames" class="col-md-4 col-form-label text-md-right">{{ __('Registered Names') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="registeredNames" type="text" placeholder="+256742563825" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="registeredNames" value="{{ old('registeredNames') }}" required autofocus>
+
+                                        @if ($errors->has('registeredNames'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('registeredNames') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="tab-pane fade" id="pills-receiver-bank" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                
+                                    <div class="form-group row">
+                                        <label for="bank_name" class="col-md-4 col-form-label text-md-right">{{ __('Bank Name') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="bank_name" type="text" class="form-control{{ $errors->has('bank_name') ? ' is-invalid' : '' }}" name="bank_name" value="{{ old('bank_name') }}" required autofocus>
+
+                                            @if ($errors->has('bank_name'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('bank_name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="account_name" type="text" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_name" value="{{ old('account_name') }}" required autofocus>
+
+                                            @if ($errors->has('account_name'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('account_name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="account_number" type="text" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" required autofocus>
+
+                                            @if ($errors->has('account_number'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('account_number') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                        @endif
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -83,5 +270,157 @@
             </div>
         </div>
     </div>
+
+
 </div>
+
+<div class="modal fade" id="newReceivingAcct" tabindex="-1" role="dialog" aria-labelledby="newReceivingAcctLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Creating New Account for {{$reciever_accounts->first()->fname}} {{$reciever_accounts->first()->lname}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+       <input  type="hidden"  name="account_owner" value="{{$reciever_accounts->first()->id}}" required >
+        <div class="form-group row">
+                        <label for="account_type" class="col-md-4 col-form-label text-md-right">{{ __('Account Type') }}</label>
+
+                                <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="account_type" id="optionsRadios1" value="mobile_money" checked>
+                                    Mobile Money
+                                </label>
+                                </div>
+                                <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="account_type" id="optionsRadios2" value="bank_account">
+                                    Bank Account
+                                </label>
+                                </div>
+                        </div>
+
+
+                          <div class="form-group row">
+                            <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
+                            
+                            <div class="col-md-6">
+                                <input id="account_name" type="text" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_name" value="{{ old('account_name') }}" required autofocus>
+
+                                @if ($errors->has('account_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('account_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="account_number" type="text" placeholder="+256742563825" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" required autofocus>
+
+                                @if ($errors->has('account_number'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('account_number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('submit') }}
+                                </button>
+                            </div>
+                        </div>
+          
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="newSendingAcct" tabindex="-1" role="dialog" aria-labelledby="newSendingAcctLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add My new Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+        <div class="form-group row">
+                        <label for="account_type" class="col-md-4 col-form-label text-md-right">{{ __('Account Type') }}</label>
+
+                                <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="account_type" id="optionsRadios1" value="mobile_money" checked>
+                                    Mobile Money
+                                </label>
+                                </div>
+                                <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="account_type" id="optionsRadios2" value="bank_account">
+                                    Bank Account
+                                </label>
+                                </div>
+                        </div>
+
+
+                          <div class="form-group row">
+                            <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="account_name" type="text" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_name" value="{{ old('account_name') }}" required autofocus>
+
+                                @if ($errors->has('account_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('account_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="account_number" type="text" placeholder="+256742563825" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" required autofocus>
+
+                                @if ($errors->has('account_number'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('account_number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+        
+        
+        
+        <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('submit') }}
+                </button>
+            </div>
+        </div>
+         </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
 @endsection

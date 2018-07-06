@@ -62,6 +62,10 @@ class HomeController extends Controller
         ->where('users.id', $reciever_id)
         ->get();
 
+        if($request->key==1){
+            $reciever_accounts=null;
+            return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
+        }
         return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
     }
     public function getLoggedin_UserAccounts(){
