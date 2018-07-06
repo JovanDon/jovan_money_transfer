@@ -180,6 +180,71 @@ $.get("{{ url('getaccount_info') }}/?account_id="+$(this).val() +"", function(ac
 
 });
 
+
+$("#pills-profile-tab").click(function(){
+
+$('#phonenumber_1').prop('disabled', true);
+$('#phonenumber_1').prop('required', false);
+$('#registeredNames_1').prop('disabled', true);
+$('#registeredNames_1').prop('required', false);
+
+$('#bank_name_1').prop('disabled', false);
+$('#bank_name_1').prop('required', true);
+$('#account_number_1').prop('disabled', false);
+$('#account_number_1').prop('required', true);
+$('#account_name_1').prop('disabled', false);
+$('#account_name_1').prop('required', true);
+});
+
+$("#pills-home-tab").click(function(){
+
+$('#phonenumber_1').prop('disabled', false);
+$('#phonenumber_1').prop('required', true);
+$('#registeredNames_1').prop('disabled', false);
+$('#registeredNames_1').prop('required', true);
+
+$('#bank_name_1').prop('disabled', true);
+$('#bank_name_1').prop('required', false);
+$('#account_number_1').prop('disabled', true);
+$('#account_number_1').prop('required', false);
+$('#account_name_1').prop('disabled', true);
+$('#account_name_1').prop('required', false);
+ 
+});
+
+ 
+
+$("#pills-receiver-bank-tab").click(function(){
+
+$('#phonenumber_2').prop('disabled', true);
+$('#phonenumber_2').prop('required', false);
+$('#registeredNames_2').prop('disabled', true);
+$('#registeredNames_2').prop('required', false);
+
+$('#bank_name_2').prop('disabled', false);
+$('#bank_name_2').prop('required', true);
+$('#account_number_2').prop('disabled', false);
+$('#account_number_2').prop('required', true);
+$('#account_name_2').prop('disabled', false);
+$('#account_name_2').prop('required', true);
+});
+
+$("#pills-receiver-mm-tab").click(function(){
+
+$('#phonenumber_2').prop('disabled', false);
+$('#phonenumber_2').prop('required', true);
+$('#registeredNames_2').prop('disabled', false);
+$('#registeredNames_2').prop('required', true);
+
+$('#bank_name_2').prop('disabled', true);
+$('#bank_name_2').prop('required', false);
+$('#account_number_2').prop('disabled', true);
+$('#account_number_2').prop('required', false);
+$('#account_name_2').prop('disabled', true);
+$('#account_name_2').prop('required', false);
+ 
+});
+
 </script>
 
 </body>

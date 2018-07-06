@@ -28,12 +28,7 @@ class TransactionsController extends Controller
         ->join('transactions', 'accountssender.id', '=', 'transactions.sender_account')
         ->join('accounts as accountsReceiver', 'accountsReceiver.id', '=', 'transactions.reciever_account')
         ->join('users as receiverContact', 'receiverContact.id', '=', 'accountsReceiver.user_id')
-        ->select('users.fname',
-         'users.lname',
-         'receiverContact.fname as fname_receiver', 
-         'receiverContact.lname as lname_receiver',
-         'accountssender.account_number',
-          'accountsReceiver.account_number as account_number_receiver', 
+        ->select('users.fname',  'users.lname',   'receiverContact.fname as fname_receiver',    'receiverContact.lname as lname_receiver',   'accountssender.account_number', 'accountsReceiver.account_number as account_number_receiver', 
           'transactions.amount', 'transactions.created_at as transactiontime')
         ->where('users.id' ,$logged_in_user->id)
         ->orderByRaw('transactiontime DESC')
@@ -41,7 +36,7 @@ class TransactionsController extends Controller
     }
     public function record_transaction(Request $request)
     {
-        dd($request);
+       dd($request->all());
      
         // define aray data to insert in User table
         $postData = [

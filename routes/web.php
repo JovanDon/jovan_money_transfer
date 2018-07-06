@@ -27,6 +27,8 @@ Route::post('/updatecontact', 'ContactsController@update_contact');
 Route::post('/editcontact', 'ContactsController@edit_contact');
 Route::post('/deletecontact', 'ContactsController@delete_contact');
 Route::post('/addaccount_action', 'AccountsController@create_account');
+
+Route::post('/addaccount_action4send', 'AccountsController@create_account4send');
 Route::post('/addaccount', 'HomeController@display_createaccount_form');
 Route::post('/sendmoney_action', 'TransactionsController@record_transaction');
 Route::get('/viewmytransactions', 'TransactionsController@display_myTransactions');

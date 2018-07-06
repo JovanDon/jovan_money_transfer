@@ -33,7 +33,7 @@
                                         <td>{{$contact->fname}} {{$contact->lname}}</td>
                                         <td>{{$contact->phonenumber}}  {{$contact->email}}  {{$contact->country}}</td>
                                         <td> 
-                                            <form action="{{url('sendmoney')}}"  method="post">
+                                            <form action="{{url('sendmoney')}}?key=2"  method="post">
                                             @csrf
                                                 <input name="contact_id" type="hidden" value="{{$contact->id}}">
                                                 <button class="btn btn-success" type="submit">Send money</button>

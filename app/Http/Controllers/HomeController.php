@@ -55,10 +55,10 @@ class HomeController extends Controller
     {
         
         $reciever_id=$request->contact_id;
-
-        $reciever_accounts=DB::table('accounts')
-        ->join('users', 'users.id', '=', 'accounts.user_id')
-        ->select('users.*', 'accounts.account_number','accounts.account_name')
+       
+        $reciever_accounts=DB::table('users')
+        ->Leftjoin('accounts', 'users.id', '=', 'accounts.user_id')
+        ->select('users.fname', 'users.lname','users.id as contact_id' ,'accounts.*')
         ->where('users.id', $reciever_id)
         ->get();
 
@@ -66,6 +66,7 @@ class HomeController extends Controller
             $reciever_accounts=null;
             return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
         }
+        
         return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
     }
     public function getLoggedin_UserAccounts(){
