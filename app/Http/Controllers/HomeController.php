@@ -62,18 +62,38 @@ class HomeController extends Controller
         ->where('users.id', $reciever_id)
         ->get();
 
-        if($request->key==1){
+        if($this->do_loggedIn_user_has_accounts()==false){
             $reciever_accounts=null;
+           
             return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
+
+        }elseif($reciever_id=$request->contact_id==null){
+            $reciever_accounts=DB::table('users')
+            ->Leftjoin('accounts', 'users.id', '=', 'accounts.user_id')
+            ->select('users.fname', 'users.lname','users.id as contact_id' ,'accounts.*')
+            ->get();
+            return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
+    
         }
-        
+        dd($reciever_accounts);
         return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
     }
+
+    public function do_loggedIn_user_has_accounts(){
+        $users_accts=$this->getLoggedin_UserAccounts();
+        $Receivers=(new ContactsController())->getContactList();
+      if( $users_accts->isEmpty() && $Receivers->isEmpty()){
+        return false;
+      }
+        return true;
+    }
+    
+
     public function getLoggedin_UserAccounts(){
         $logged_in_user=Auth::user();
 
         $sender_accounts= Accounts::all()->where('user_id', $logged_in_user->id);
-        
+       
         return $sender_accounts;
     }
     

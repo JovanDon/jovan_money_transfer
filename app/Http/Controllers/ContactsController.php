@@ -29,12 +29,17 @@ class ContactsController extends Controller
 
     public function display_contacts_list()
     {
-
-        $logged_in_user=Auth::user();
-        $contacts= User::all()->where('created_by',$logged_in_user->id );
+        $contacts=$this->getContactList(); 
    
         return view('contactlist',compact('contacts',$contacts));
 
+    }
+    
+    public function getContactList()
+    {
+        $logged_in_user=Auth::user();
+        $contacts= User::all()->where('created_by',$logged_in_user->id );
+        return $contacts;
     }
     public function edit_contact(Request $request)
     {

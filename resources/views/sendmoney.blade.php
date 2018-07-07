@@ -163,7 +163,9 @@
                                 <option value="" ></option>
                                 @if($reciever_accounts->first()->account_name!=null)
                                 @foreach( $reciever_accounts as $account)
-                                <option value="{{$account->id}}" > {{$account->account_name}} {{$account->account_number}}</option>
+                                    @if($account->id!=null && $account->account_name!="")
+                                        <option value="{{$account->id}}" > {{$account->account_name}} {{$account->account_number}}</option>
+                                    @endif
                                 @endforeach
                                 @endif
                                 <select/>
