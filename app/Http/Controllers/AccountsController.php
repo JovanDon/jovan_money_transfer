@@ -11,6 +11,7 @@ use App\Transactions;
 
 class AccountsController extends Controller
 {
+   
     public function create_account(Request $request)
     {
         $logged_in_user=Auth::user();

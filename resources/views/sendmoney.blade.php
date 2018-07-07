@@ -56,6 +56,8 @@
                             </div>
                             <div class="col-md-2">                            
                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newSendingAcct"  >New Account</button>
+                            
+                            <input type="hidden" id="Sender_action"  name="Sender_action"  value=""  />
                             </div>
                         </div>
                         @else
@@ -99,7 +101,8 @@
                                     @endif
                                 </div>
                             </div>
-                        
+                            <input type="hidden" id="Sender_action"  name="Sender_action"  value="sender_mm"  />
+                               
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             
@@ -132,19 +135,19 @@
                                 </div>
 
                                 <div class="form-group row">
-                                <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
+                                    <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
 
-                                <div class="col-md-6">
-                                    <input id="account_number_1" type="text" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" disabled>
+                                    <div class="col-md-6">
+                                        <input id="account_number_1" type="text" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" disabled>
 
-                                    @if ($errors->has('account_number'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('account_number') }}</strong>
-                                        </span>
-                                    @endif
+                                        @if ($errors->has('account_number'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('account_number') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                                </div>
-
+                                   
                             </div>
                         </div>
                         @endif
@@ -168,6 +171,7 @@
 
                                 <div class="col-md-2">                            
                                 <button type="button" class="btn btn-info  btn-sm" data-toggle="modal" data-target="#newReceivingAcct"  >New Account</button>
+                                <input type="hidden" id="receiver_action"  name="receiver_action"  value=""  />
                                 </div>
                             </div>
                         @else
@@ -189,7 +193,7 @@
                                     <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="phonenumber_2" type="text" placeholder="+256742563825" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" required autofocus>
+                                        <input id="phonenumber_2" type="text" placeholder="+256742563825" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number_receiver" value="{{ old('account_number') }}" required autofocus>
 
                                         @if ($errors->has('account_number'))
                                             <span class="invalid-feedback" role="alert">
@@ -198,20 +202,26 @@
                                         @endif
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label for="registeredNames" class="col-md-4 col-form-label text-md-right">{{ __('Registered Names') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="registeredNames_2" type="text"  class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="registeredNames" value="{{ old('registeredNames') }}" required autofocus>
+                                        <input id="registeredNames_2" type="text"  class="form-control{{ $errors->has('registeredNames_receiver') ? ' is-invalid' : '' }}" name="registeredNames_receiver" value="{{ old('registeredNames_receiver') }}" required autofocus>
 
-                                        @if ($errors->has('registeredNames'))
+                                        @if ($errors->has('registeredNames_receiver'))
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('registeredNames') }}</strong>
+                                                <strong>{{ $errors->first('registeredNames_receiver') }}</strong>
                                             </span>
                                         @endif
                                     </div>
                                 </div>
-                            
+                                <div class="form-group row mb-0">
+                                
+                                <input type="hidden" id="receiver_action"  name="receiver_action"  value="receiver_mm"  />
+                               
+                        </div>                          
+
                             </div>
                             <div class="tab-pane fade" id="pills-receiver-bank" role="tabpanel" aria-labelledby="pills-profile-tab">
                                 
@@ -219,53 +229,54 @@
                                         <label for="bank_name" class="col-md-4 col-form-label text-md-right">{{ __('Bank Name') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="bank_name_2" type="text" class="form-control{{ $errors->has('bank_name') ? ' is-invalid' : '' }}" name="bank_name" value="{{ old('bank_name') }}" disabled>
+                                            <input id="bank_name_2" type="text" class="form-control{{ $errors->has('bank_name') ? ' is-invalid' : '' }}" name="bank_name_receiver" value="{{ old('bank_name_receiver') }}" disabled>
 
-                                            @if ($errors->has('bank_name'))
+                                            @if ($errors->has('bank_name_receiver'))
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('bank_name') }}</strong>
+                                                    <strong>{{ $errors->first('bank_name_receiver') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
                                     </div>
                                     
                                     <div class="form-group row">
-                                        <label for="account_name" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
+                                        <label for="account_name_receiver" class="col-md-4 col-form-label text-md-right">{{ __('Account Name') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="account_name_2" type="text" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_name" value="{{ old('account_name') }}" disabled >
+                                            <input id="account_name_2" type="text" class="form-control{{ $errors->has('account_name_receiver') ? ' is-invalid' : '' }}" name="account_name_receiver" value="{{ old('account_name_receiver') }}" disabled >
 
-                                            @if ($errors->has('account_name'))
+                                            @if ($errors->has('account_name_receiver'))
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('account_name') }}</strong>
+                                                    <strong>{{ $errors->first('account_name_receiver') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="account_number" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
+                                        <label for="account_number_receiver" class="col-md-4 col-form-label text-md-right">{{ __('Account Number') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="account_number_2" type="text" class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}" name="account_number" value="{{ old('account_number') }}" disabled >
+                                            <input id="account_number_2" type="text" class="form-control{{ $errors->has('account_number_receiver') ? ' is-invalid' : '' }}" name="account_number_receiver" value="{{ old('account_number_receiver') }}" disabled >
                                             
-                                            @if ($errors->has('account_number'))
+                                            @if ($errors->has('account_number_receiver'))
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('account_number') }}</strong>
+                                                    <strong>{{ $errors->first('account_number_receiver') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
                                     </div>
+                                    
+                                
 
                             </div>
                         </div>
                         @endif
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send money') }}
-                                </button>
-                            </div>
+                        
+                        <div class="col-md-6 offset-md-4">
+                                    <button type="submit"  class="btn btn-primary">
+                                        {{ __('Send money') }}
+                                    </button>
                         </div>
                     </form>
                 </div>

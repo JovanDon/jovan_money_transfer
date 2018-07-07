@@ -194,6 +194,8 @@ $('#account_number_1').prop('disabled', false);
 $('#account_number_1').prop('required', true);
 $('#account_name_1').prop('disabled', false);
 $('#account_name_1').prop('required', true);
+
+$('#Sender_action').val('sender_bank');
 });
 
 $("#pills-home-tab").click(function(){
@@ -210,6 +212,8 @@ $('#account_number_1').prop('required', false);
 $('#account_name_1').prop('disabled', true);
 $('#account_name_1').prop('required', false);
  
+
+$('#Sender_action').val('sender_mm');
 });
 
  
@@ -227,6 +231,8 @@ $('#account_number_2').prop('disabled', false);
 $('#account_number_2').prop('required', true);
 $('#account_name_2').prop('disabled', false);
 $('#account_name_2').prop('required', true);
+
+$('#receiver_action').val('receiver_bank');
 });
 
 $("#pills-receiver-mm-tab").click(function(){
@@ -243,6 +249,8 @@ $('#account_number_2').prop('required', false);
 $('#account_name_2').prop('disabled', true);
 $('#account_name_2').prop('required', false);
  
+
+$('#receiver_action').val('receiver_mm');
 });
 
 </script>
