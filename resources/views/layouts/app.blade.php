@@ -10,22 +10,15 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
+  
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
  <!-- Bootstrap Core CSS -->
  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 <!-- MetisMenu CSS -->
- <link href="{{ asset('vendor/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
-
 <!-- DataTables CSS -->
 <link href="{{ asset('vendor/datatables/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 <!--international phone numbers-->
 <link href="{{ asset('intl-tel-input-12.4.0/build/css/intlTelInput.css') }}" rel="stylesheet">
 
@@ -48,6 +41,8 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarColor01">
+                @guest
+                @else
                   <ul class="navbar-nav mr-auto">                    
                     <li class="nav-item">
                       <a class="nav-link" href="{{ URL::to('contactlist') }}">Contact list</a>
@@ -62,6 +57,7 @@
                       <a class="nav-link" href="{{ URL::to('viewmytransactions') }}">My transactions</a>
                     </li>
                   </ul>
+                @endguest
                   <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
@@ -146,11 +142,8 @@
 
 
 <!-- Bootstrap Core JavaScript -->
-<script src="{{ asset('vendor/popper/popper.min.js') }}"></script>
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="{{ asset('vendor/metisMenu/metisMenu.min.js') }}"></script>
 <!-- DataTables JavaScript -->
 <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
