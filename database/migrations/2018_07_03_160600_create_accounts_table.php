@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
             $table->enum('account_type', [ 'bank_account', 'mobile_money']);
             $table->string('account_number');
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

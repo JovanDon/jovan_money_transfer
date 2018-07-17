@@ -37,6 +37,7 @@ class AccountsController extends Controller
             'account_number' => $request->account_number,
             'user_id' => $request->owner_id!="loggedinUser"? $request->owner_id:$logged_in_user->id
         ];
+        
         //insert  Contact data
         Accounts::create($postData);
         return (new HomeController())->display_sendmoney_form($request);
@@ -48,6 +49,14 @@ class AccountsController extends Controller
         $account_id = $request->account_id;
 
         $accountData = Accounts::where('id','=',$account_id)->get();
+        return response($accountData);
+
+    }
+    public function get_json_user_accountData(Request $request)
+    {
+        $user_id = $request->user_id;
+
+        $accountData = Accounts::where('user_id','=',$user_id)->get();
         return response($accountData);
 
     }

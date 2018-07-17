@@ -156,7 +156,7 @@
 
                         @if($reciever_accounts!=null)
                             <div class="form-group row">
-                                <label for="account_name" class="col-md-4 col-form-label text-md-right">{{$reciever_accounts->first()->fname}} {{$reciever_accounts->first()->lname}}'s Accounts</label>
+                                <label for="account_name" class="col-md-4 col-form-label text-md-right">{{__('Account')}}</label>
 
                                 <div class="col-md-6">
                                 <select id="account_name" class="form-control{{ $errors->has('account_name') ? ' is-invalid' : '' }}" name="account_reciever" value="{{ old('account_name') }}" >

@@ -67,15 +67,17 @@ class HomeController extends Controller
            
             return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
 
-        }elseif($reciever_id=$request->contact_id==null){
-            $reciever_accounts=DB::table('users')
-            ->Leftjoin('accounts', 'users.id', '=', 'accounts.user_id')
-            ->select('users.fname', 'users.lname','users.id as contact_id' ,'accounts.*')
+        }elseif($reciever_id==null){
+            $logged_in_user=Auth::user();
+            $recievers=DB::table('users')
+            ->select('users.fname', 'users.lname','users.id as contact_id' )
+            ->where('users.created_by', $logged_in_user->id)
             ->get();
-            return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
+            
+            return view('sendmoney2',compact('recievers',$recievers));
     
         }
-        dd($reciever_accounts);
+        
         return view('sendmoney',compact('reciever_accounts',$reciever_accounts));
     }
 

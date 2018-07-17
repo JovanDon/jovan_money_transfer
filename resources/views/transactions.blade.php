@@ -16,7 +16,7 @@
             </div>
         @endif                  
 
-                            <table width="110%" class="table table-striped table-bordered table-responsive-md" id="dataTables-example">
+                            <table width="120%" class="table table-striped table-bordered table-responsive-md" id="dataTables-example">
                                 <thead>
                                 <tr>
                                     <th> Sender</th>
@@ -28,9 +28,9 @@
                                 <tbody>
                                 @foreach ($transactions as $transaction) 
                                     <tr >
-                                        <td>{{$transaction->fname}} {{$transaction->lname}} {{$transaction->account_number}}</td>
+                                        <td>{{$transaction->fname}} {{$transaction->lname}} ({{$transaction->account_name}} {{$transaction->account_number}})</td>
                                         <td> {{$transaction->amount}}</td>
-                                        <td> {{$transaction->fname_receiver}}  {{$transaction->lname_receiver}}   {{$transaction->account_number_receiver}}</td>
+                                        <td> {{$transaction->fname_receiver}}  {{$transaction->lname_receiver}}   ({{$transaction->account_name_receiver}} {{$transaction->account_number_receiver}})</td>
                                         <td>{{$transaction->transactiontime}}</td>
                                     </tr>
                                @endforeach

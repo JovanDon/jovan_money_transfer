@@ -30,7 +30,7 @@ class TransactionsController extends Controller
         ->join('transactions', 'accountssender.id', '=', 'transactions.sender_account')
         ->join('accounts as accountsReceiver', 'accountsReceiver.id', '=', 'transactions.reciever_account')
         ->join('users as receiverContact', 'receiverContact.id', '=', 'accountsReceiver.user_id')
-        ->select('users.fname',  'users.lname',   'receiverContact.fname as fname_receiver',    'receiverContact.lname as lname_receiver',   'accountssender.account_number', 'accountsReceiver.account_number as account_number_receiver', 
+        ->select('users.fname',  'users.lname',   'receiverContact.fname as fname_receiver',    'receiverContact.lname as lname_receiver',   'accountssender.account_name',  'accountssender.account_number', 'accountsReceiver.account_name as account_name_receiver', 'accountsReceiver.account_number as account_number_receiver', 
           'transactions.amount', 'transactions.created_at as transactiontime')
         ->where('users.id' ,$logged_in_user->id)
         ->orderByRaw('transactiontime DESC')

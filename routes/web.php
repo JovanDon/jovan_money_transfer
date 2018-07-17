@@ -36,6 +36,5 @@ Route::get('/viewmytransactions', 'TransactionsController@display_myTransactions
 
 
 Route::get('/getaccount_info','AccountsController@get_json_accountData');
-
-
+Route::get('/get_user_account_info','AccountsController@get_json_user_accountData');
 

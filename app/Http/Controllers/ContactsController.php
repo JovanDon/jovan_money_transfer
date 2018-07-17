@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Accounts;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ContactsController extends Controller
 {
@@ -76,6 +78,6 @@ class ContactsController extends Controller
 
     } 
  
-     
+   
 
 }

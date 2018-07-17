@@ -16,7 +16,7 @@
  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 <!-- MetisMenu CSS -->
 <!-- DataTables CSS -->
-<link href="{{ asset('vendor/datatables/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <!--international phone numbers-->
@@ -142,37 +142,65 @@
 
 
 <!-- Bootstrap Core JavaScript -->
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+ 
+<script src="{{ asset('vendorbootstrap/js/popper.min.js') }}"></script>
+<script src="{{ asset('vendorbootstrap/js/bootstrap.min.js') }}"></script>
 
 <!-- DataTables JavaScript -->
-<script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables-responsive/responsive.bootstrap4.js') }}"></script>
-
-
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     $(document).ready(function () {
+
         $('#dataTables-example').DataTable({
             responsive: true,
+            "order": [[ 3, "desc" ]],
             drawCallback: function () {
                 $('#dataTables-example_wrapper .row:last-child').addClass('mb-1 align-items-baseline');
             }
         });
+
     });
 </script>
+<script type="text/javascript"src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/responsive.bootstrap4.js') }}"></script>
+
+
+
 <script>
 
 $("select#account_sender").change(function(){
 
-$.get("{{ url('getaccount_info') }}/?account_id="+$(this).val() +"", function(accountsData){
-    //alert(JSON.stringify(accountsData));
-    $("input#account_number_sender").val(accountsData[0].account_number); 
-    $("#accountNumber_sender_div").show();
-});
+    $.get("{{ url('getaccount_info') }}/?account_id="+$(this).val() +"", function(accountsData){
+        //alert(JSON.stringify(accountsData));
+        $("input#account_number_sender").val(accountsData[0].account_number); 
+        $("#accountNumber_sender_div").show();
+    });
 
 });
 
+$("select#receiver").change(function(){
+
+
+    $('#receiver_model_label').text('Creating New Account for '+$("#receiver option:selected").text());
+    
+    $('#contact_id').val($("#receiver option:selected").val());
+    $('#owner_id').val($("#receiver option:selected").val());
+  
+     
+    $.get("{{ url('get_user_account_info') }}/?user_id="+$(this).val() +"", function(accountsData){
+       
+        var options="<option value='' ></option> ";
+     
+        for(x in accountsData){
+            
+            options+="<option value='"+accountsData[x].id+"' >"+accountsData[x].account_name+" "+accountsData[x].account_number+"</option>";
+        }
+       
+        $("select#account_name").html(options); 
+        $("select#account_name").show();
+    });
+
+});
 
 $("#pills-profile-tab").click(function(){
 
@@ -193,39 +221,39 @@ $('#Sender_action').val('sender_bank');
 
 $("#pills-home-tab").click(function(){
 
-$('#phonenumber_1').prop('disabled', false);
-$('#phonenumber_1').prop('required', true);
-$('#registeredNames_1').prop('disabled', false);
-$('#registeredNames_1').prop('required', true);
+    $('#phonenumber_1').prop('disabled', false);
+    $('#phonenumber_1').prop('required', true);
+    $('#registeredNames_1').prop('disabled', false);
+    $('#registeredNames_1').prop('required', true);
 
-$('#bank_name_1').prop('disabled', true);
-$('#bank_name_1').prop('required', false);
-$('#account_number_1').prop('disabled', true);
-$('#account_number_1').prop('required', false);
-$('#account_name_1').prop('disabled', true);
-$('#account_name_1').prop('required', false);
- 
+    $('#bank_name_1').prop('disabled', true);
+    $('#bank_name_1').prop('required', false);
+    $('#account_number_1').prop('disabled', true);
+    $('#account_number_1').prop('required', false);
+    $('#account_name_1').prop('disabled', true);
+    $('#account_name_1').prop('required', false);
+    
 
-$('#Sender_action').val('sender_mm');
+    $('#Sender_action').val('sender_mm');
 });
 
  
 
 $("#pills-receiver-bank-tab").click(function(){
 
-$('#phonenumber_2').prop('disabled', true);
-$('#phonenumber_2').prop('required', false);
-$('#registeredNames_2').prop('disabled', true);
-$('#registeredNames_2').prop('required', false);
+    $('#phonenumber_2').prop('disabled', true);
+    $('#phonenumber_2').prop('required', false);
+    $('#registeredNames_2').prop('disabled', true);
+    $('#registeredNames_2').prop('required', false);
 
-$('#bank_name_2').prop('disabled', false);
-$('#bank_name_2').prop('required', true);
-$('#account_number_2').prop('disabled', false);
-$('#account_number_2').prop('required', true);
-$('#account_name_2').prop('disabled', false);
-$('#account_name_2').prop('required', true);
+    $('#bank_name_2').prop('disabled', false);
+    $('#bank_name_2').prop('required', true);
+    $('#account_number_2').prop('disabled', false);
+    $('#account_number_2').prop('required', true);
+    $('#account_name_2').prop('disabled', false);
+    $('#account_name_2').prop('required', true);
 
-$('#receiver_action').val('receiver_bank');
+    $('#receiver_action').val('receiver_bank');
 });
 
 $("#pills-receiver-mm-tab").click(function(){
