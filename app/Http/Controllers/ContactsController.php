@@ -32,6 +32,7 @@ class ContactsController extends Controller
     public function display_contacts_list()
     {
         $contacts=$this->getContactList(); 
+        
    
         return view('contactlist',compact('contacts',$contacts));
 
@@ -40,8 +41,33 @@ class ContactsController extends Controller
     public function getContactList()
     {
         $logged_in_user=Auth::user();
+        
         $contacts= User::all()->where('created_by',$logged_in_user->id );
+
+        foreach($contacts as $contact){
+            $last_transaction=$this->getReceiver_last_transaction($contact->id);
+
+            if($last_transaction->first()!=null){
+                $date_of_last_transact = $last_transaction->first()->Created_at;  
+
+                $contact->last_transaction=$date_of_last_transact;
+            }
+                       
+        }
+        
         return $contacts;
+    }
+    private function getReceiver_last_transaction($Userid){
+
+        $user_transactions= DB::table('users')
+        ->join('accounts', 'accounts.user_id', '=', 'users.id')        
+        ->join('transactions', 'transactions.reciever_account', '=', 'accounts.id') 
+        ->where('users.id',$Userid)       
+        ->select('transactions.*')
+        ->orderBy('transactions.id', 'desc')
+        ->get();
+
+        return $user_transactions;
     }
     public function edit_contact(Request $request)
     {

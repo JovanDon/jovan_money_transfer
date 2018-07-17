@@ -21,6 +21,7 @@
                                 <tr>
                                     <th> Name</th>
                                     <th>Contact/Addres information</th>
+                                    <th>Last Transaction</th>
                                     <th>Action 1</th>
                                     <th>Action 2</th>
                                     <th>Action 3</th>
@@ -32,6 +33,7 @@
                                     <tr >
                                         <td>{{$contact->fname}} {{$contact->lname}}</td>
                                         <td>{{$contact->phonenumber}}  {{$contact->email}}  {{$contact->country}}</td>
+                                        <td>@if($contact->last_transaction!=null) {{$contact->last_transaction}}  @endif</td>
                                         <td> 
                                             <form action="{{url('sendmoney')}}?key=2"  method="post">
                                             @csrf
